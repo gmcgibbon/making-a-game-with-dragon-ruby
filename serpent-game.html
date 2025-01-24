@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Serpent - The classic game of Snake in TypeScript</title>
+    <meta name="description" content="The classic game of Snake in TypeScript">
+    <meta name="author"      content="Gannon McGibbon">
+    <script src="./serpent.js"></script>
+  </head>
+  <body>
+    <canvas id="stage"></canvas>
+    <button id="button-up">&uarr;</button>
+    <button id="button-down">&darr;</button>
+    <button id="button-left">&larr;</button>
+    <button id="button-right">&rarr;</button>
+    <button id="button-start-stop">Start/Stop</button>
+    <button id="button-reset">Reset</button>
+    <script>
+      var canvas = document.getElementById('stage');
+
+      canvas.style.width='100%';
+      canvas.style.height='300px';
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+
+      // Start the stage animation
+      window.board = new Serpent.Engine.Game.Board({
+        canvas:  document.getElementById('stage'),
+        rowCount: 10,
+        columnCount: 30,
+        frameRate: 10,
+        onGameOver: function() { console.log('Game Over!') },
+        snake: buildSnake,
+        food:  buildFood,
+        default: {
+          backgroundColor: 'green',
+          foregroundColor: 'black',
+          fontStyle:  '20px Arial',
+          fillStyle: function() { return 'black' }
+        }
+      });
+
+      function buildFood(board) {
+        var food = new Serpent.Engine.Game.Food(board);
+        return food;
+      }
+
+      function buildSnake(board) {
+        var snake = new Serpent.Engine.Game.Snake(board);
+        return snake;
+      }
+
+      document.getElementById('button-start-stop').addEventListener('click', function() {
+        window.board.animation.toggle();
+      });
+      document.getElementById('button-reset').addEventListener('click', function() {
+        window.board.reset();
+      });
+      document.getElementById('button-down').addEventListener('click', function() {
+        window.board.snake.queueDirection(0);
+      });
+      document.getElementById('button-left').addEventListener('click', function() {
+        window.board.snake.queueDirection(1);
+      });
+      document.getElementById('button-right').addEventListener('click', function() {
+        window.board.snake.queueDirection(2);
+      });
+      document.getElementById('button-up').addEventListener('click', function() {
+        window.board.snake.queueDirection(3);
+      });
+
+      document.addEventListener('keydown', function(e) {
+        switch(e.keyCode) {
+          case 37: // left
+            window.board.snake.queueDirection(1);
+            break;
+          case 38: // up
+            window.board.snake.queueDirection(3);
+            break;
+          case 39: // right
+            window.board.snake.queueDirection(2);
+            break;
+          case 40: // down
+            window.board.snake.queueDirection(0);
+            break;
+        }
+      });
+    </script>
+  </body>
+</html>

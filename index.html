@@ -1,0 +1,988 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title>Making a Game with DragonRuby</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/dist/reset.css">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/dist/theme/night.css">
+    <link rel="stylesheet" href="https://unpkg.com/highlight.js@11.10.0/styles/github-dark.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "mermaid": "https://unpkg.com/mermaid@11.4.1/dist/mermaid.esm.min.mjs",
+          "reveal.js": "https://unpkg.com/reveal.js@5.1.0/dist/reveal.esm.js",
+          "reveal.js-mermaid-plugin": "./mermaid-plugin.js",
+          "reveal.js-laser-pointer-plugin": "./laser-pointer-plugin.js",
+          "reveal.js-markdown-plugin": "https://unpkg.com/reveal.js@5.1.0/plugin/markdown/markdown.esm.js",
+          "reveal.js-highlight-plugin": "https://unpkg.com/reveal.js@5.1.0/plugin/highlight/highlight.esm.js",
+          "reveal.js-notes-plugin": "https://unpkg.com/reveal.js@5.1.0/plugin/notes/notes.esm.js"
+        }
+      }
+    </script>
+  </head>
+  <style>
+    svg {
+      max-width: none !important;
+      line-height: 150%;
+      -webkit-text-stroke-width: 0.01px;
+    }
+
+    img[alt="Gannon"] {
+      width: 40%;
+      float: right;
+      padding-left: 10px;
+    }
+
+    video {
+      width: 65%;
+    }
+
+    #serpent {
+      height: 400vh;
+      width: 40vw;
+    }
+
+    img[alt="Serpent Mobile"] {
+      width: 30%;
+    }
+
+    img[alt="OpenGL Demo"] {
+      width: 60%;
+    }
+
+    img[alt="Ruby Release"] {
+      width: 80%;
+    }
+
+    img[alt="DragonRuby Logo"] {
+      width: 40%;
+    }
+
+    img[alt="DragonRuby Simple Game"] {
+      width: 22%;
+    }
+
+    img[alt="DragonRuby Simple Game X,Y,W,H"] {
+      width: 75%;
+    }
+
+    img[alt="DragonRuby Itch.io Page"] {
+      width: 80%;
+    }
+  </style>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown>
+          <textarea data-template>
+            ## Making a Game with DragonRuby
+
+            #### [Gannon McGibbon](https://gannon.io/)
+
+            Note:
+            - For WRUG January 2025
+            - Thanks for Shopify and Launch for sponsoring this meetup!
+            ---
+            ## Who is a web developer?
+
+            # 🙋
+
+            ---
+            ## Who is a game developer?
+
+            # 🙋‍♀️
+
+            ---
+            ## Who's made a game before?
+
+            # 🙋‍♂️
+
+            ---
+            ## 👋 Hi, I'm Gannon
+
+            ![Gannon](images/me.jpg)
+
+            - Works at Shopify
+            - Committer on Ruby on Rails
+            - Organizes Winnipeg.rb
+            Note:
+            - Intro
+            ---
+            ## I'm a web developer
+
+            # 🙋‍♂️
+
+            Note:
+            - I am a game developer
+            - But I've also attempted to make games
+            ---
+            ## My Journey in Game Development
+
+            Note:
+            - And before I talk about DragonRuby
+            - I want to talk about that
+            ---
+            ## JavaScript Canvas
+
+            <video src="images/canvas.mp4">
+            </video>
+
+            Note:
+            - First, we have the HTML canvas
+            - I'm sure many have done something like this
+            - I wrote something like this in college whilee learning web dev
+            - It taught me rudimentary concepts critical to game dev
+            - Source https://github.com/MTrajK/bouncing-balls
+            ---
+            ## Snake
+
+            <iframe id="serpent" data-src="./serpent-game.html">
+            </iframe>
+
+            Note:
+            - Next I wanted to make something more challenging
+            - Snake was the perfect candidate
+            - Easy to code and understand, but fun
+            ---
+            ## Snake
+
+            <iframe id="serpent" data-src="./serpent-game.html">
+            </iframe>
+
+            Note:
+            - The source isn't on GitHub, I'm too embarassed by it
+            - It was my first time writing TypeScript
+            - It is linted and tested! I promise
+            - I was able to embed it on a slide
+            - Play game
+            ---
+            ## Snake Mobile
+
+            ![Serpent Mobile](images/serpent.png)
+
+            Note:
+            - Amazon wanted apps for their app store
+            - They offered gift cards for devs who publish on their store
+            - I was learning about cordova at the time
+            ---
+            ## Snake Mobile
+
+            ![Serpent Mobile](images/serpent.png)
+
+            Note:
+            - So I did
+            - I don't remember if I got
+            - I wrote it in CoffeeScript and Ionic
+            - Play game
+            ---
+            ## OpenGL
+
+            ![OpenGL Demo](images/opengl.png)
+
+            Note:
+            - Next up, I heard about DragonRuby at RubyKaigi
+            - I was exited to hear you could write games with Ruby
+            - The game engine was free for a week, so I tried using it
+            ---
+            ## OpenGL
+
+            ![OpenGL Demo](images/opengl.png)
+
+            Note:
+            - And I hated it and thought I could do better
+            - So I built my own game engine with OpenGL
+            - Needless to say, it didn't go great
+            - Play game
+            ---
+            ## Rabbit Jumper
+
+            ![DragonRuby Demo](images/rabbit-jumper.png)
+
+            Note:
+            - Finally, I tried DragonRuby again last month
+            - It was an interesting experience
+            - My motivation for this presentation
+            ---
+            ## What is DragonRuby?
+
+            - A specialized Ruby Runtime
+            - Based on mruby
+            - Powers DragonRuby Game Toolkit and RubyMotion
+
+            Note:
+            - But what is it exactly?
+            - A ruby runtime for games and mobile apps
+            - LLVM compiled mruby
+            - Built for DragonRuby GTK and RubyMotion
+            ---
+            ## What's a Ruby Runtime?
+
+            - Languages have implementations
+            - Ruby has many (CRuby, Truffle, JRuby, etc.)
+            - Many other languages do too (PyPy, V8, etc.)
+
+            Note:
+            - An implementation of a language
+            - Ruby has CRuby, JRuby, Truffle, Rubinius, and more
+            - Other languages have multiple implementations too
+            ---
+            ## DragonRuby Runtime
+
+            ```txt
+            > bundle install
+            Installing rake 13.2.1
+            Installing base64 0.2.0
+            Installing crass 1.0.6
+            Installing erubi 1.13.1
+            Installing marcel 1.0.4
+            Installing racc 1.8.1 with native extensions
+            Installing connection_pool 2.4.1
+            Installing builder 3.3.0
+            Installing drb 2.2.1
+            Installing nio4r 2.7.4 with native extensions
+            Installing useragent 0.16.11
+            Installing rack 2.2.10
+            Installing bigdecimal 3.1.9 with native extensions
+            Installing minitest 5.25.4
+            ```
+            ## ❌
+
+            Note:
+            - DragonRuby has a few limitations
+            - First, there's no gems
+            - You have to vendor your dependencies
+            - You're missing a lot of familiar tools
+            ---
+            ## DragonRuby Runtime
+
+            ```ruby
+            RUBY_VERSION
+            # => "3.0"
+            ```
+
+            ![Ruby Release](images/ruby-release.png)
+
+            Note:
+            - You're also on Ruby 3.0
+            - The current released version is 3.4
+            - Certain lang features and libs aren't there
+            ---
+            ## DragonRuby Runtime
+
+            ```sh
+            * ERROR: Exception while requiring app/main.rb.
+            * ERROR: Exception while requiring app/game.rb.
+            uninitialized constant Dir
+            ** Backtrace:
+            *** app/game.rb:25
+            *** app/main.rb:1
+            ** Backtrace:
+            *** app/main.rb:1
+            ** Backtrace: (-1)
+            ```
+
+            ```sh
+            * ERROR: Exception while requiring app/main.rb.
+            * ERROR: Exception while requiring app/game.rb.
+            uninitialized constant ENV
+            ** Backtrace:
+            *** app/game.rb:25
+            *** app/main.rb:1
+            ** Backtrace:
+            *** app/main.rb:1
+            ** Backtrace: (-1)
+            ```
+
+            Note:
+            - Like Dir and ENV
+            - There's also no $LOAD_PATH, so you're stuck with the game root
+            - Some metaprogramming APIs missing like public_send
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ![DragonRuby Logo](images/dragonruby-logo.png)
+
+            Note:
+            - DragonRuby isn't all downsides
+            - The game toolkit provides APIs to remedy this
+            - Might not be idomatic, but they work
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[]
+            GTK.set_window_fullscreen true
+            GTK.platform? :ios
+            GTK.notify! "Toast message"
+            GTK.write_file("character.save", "{ "data": true }")
+            GTK.getenv("MY_VARIABLE")
+            scores = GTK.http_get("https://game.com/api/scores.json")
+            GTK.parse_json(scores)
+            GTK.benchmark(
+              iterations: 1_000,
+              operator: proc { 1 % 2 },
+              method: proc { 1.modulo(2) },
+            )
+            ```
+
+            Note:
+            - The GTK API covers most things you need
+            - If the Ruby API doesn't exist, this should
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[1-3]
+            GTK.set_window_fullscreen true
+            GTK.platform? :ios
+            GTK.notify! "Toast message"
+            GTK.write_file("character.save", "{ "data": true }")
+            GTK.getenv("MY_VARIABLE")
+            scores = GTK.http_get("https://game.com/api/scores.json")
+            GTK.parse_json(scores)
+            GTK.benchmark(
+              iterations: 1_000,
+              operator: proc { 1 % 2 },
+              method: proc { 1.modulo(2) },
+            )
+            ```
+
+            Note:
+            - It also has game specific methods
+            - Like going fullscreen
+            - Checking which platform you're on
+            - And sending messages to the screen
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[4-7]
+            GTK.set_window_fullscreen true
+            GTK.platform? :ios
+            GTK.notify! "Toast message"
+            GTK.write_file("character.save", "{ "data": true }")
+            GTK.getenv("MY_VARIABLE")
+            scores = GTK.http_get("https://game.com/api/scores.json")
+            GTK.parse_json(scores)
+            GTK.benchmark(
+              iterations: 1_000,
+              operator: proc { 1 % 2 },
+              method: proc { 1.modulo(2) },
+            )
+            ```
+
+            Note:
+            - You can also do IO
+            - Reading and writing files
+            - Managing environment variables
+            - Networking
+            - JSON parsing
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[8-12]
+            GTK.set_window_fullscreen true
+            GTK.platform? :ios
+            GTK.notify! "Toast message"
+            GTK.write_file("character.save", "{ "data": true }")
+            GTK.getenv("MY_VARIABLE")
+            scores = GTK.http_get("https://game.com/api/scores.json")
+            GTK.parse_json(scores)
+            GTK.benchmark(
+              iterations: 1_000,
+              operator: proc { 1 % 2 },
+              method: proc { 1.modulo(2) },
+            )
+            ```
+
+            Note:
+            - DragonRuby has benchmarking too
+            - Explain code
+            - That's pretty cool
+            - Performance semantics may not be the same as MRI
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[]
+            Kernel.tick_count
+            start_frame = 0
+            sprite_index = start_frame.frame_index(
+              5,    # number of sprites
+              3,    # frames per sprite,
+              true, # should loop
+            )
+            click_frame = Kernel.tick_count
+            click_frame.elapsed_time > 60 # seconds
+            [x, y, w, h].inside_rect?(other)
+            ```
+
+            Note:
+            - There's also some core extensions
+            - Kernel, Integers, and Arrays have a few
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[1]
+            Kernel.tick_count
+            start_frame = 0
+            sprite_index = start_frame.frame_index(
+              5,    # number of sprites
+              3,    # frames per sprite,
+              true, # should loop
+            )
+            click_frame = Kernel.tick_count
+            click_frame.elapsed_time > 60 # seconds
+            [x, y, w, h].inside_rect?(other)
+            ```
+
+            Note:
+            - First is the tick count extension
+            - This keeps track of game ticks
+            - Ticks are basically a counter for rendered frames
+            - Used with the tick method I'll talk about later
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[2-9]
+            Kernel.tick_count
+            start_frame = 0
+            sprite_index = start_frame.frame_index(
+              5,    # number of sprites
+              3,    # frames per sprite,
+              true, # should loop
+            )
+            click_frame = Kernel.tick_count
+            click_frame.elapsed_time > 60 # seconds
+            [x, y, w, h].inside_rect?(other)
+            ```
+
+            Note:
+            - Next up we have Integer extensions
+            - frame_index allows you to work with sprite frames
+            - elapsed_time allows you to count time between frames
+            - Both of these are useful for rendering animations
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[10]
+            Kernel.tick_count
+            start_frame = 0
+            sprite_index = start_frame.frame_index(
+              5,    # number of sprites
+              3,    # frames per sprite,
+              true, # should loop
+            )
+            click_frame = Kernel.tick_count
+            click_frame.elapsed_time > 60 # seconds
+            [x, y, w, h].inside_rect?(other)
+            ```
+
+            Note:
+            - Lastly we have Array extensions
+            - These are often collision and geometry related
+            - inside_rect? checks for a collision between two rectangles
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[]
+            def tick(args)
+              if args.inputs.mouse.button_left
+                args.state.click = true
+                args.outputs.labels << { x: 500, y: 600, text: "Click!" }
+              end
+              args.outputs.solids << [200, 400, 100, 100]
+              args.outputs.sprites << Sprite.new(
+                x: 10, y: 10, size: 30, path: "sprites/test.png",
+              )
+            end
+            ```
+
+            Note:
+            - Coming back to the concept of ticks
+            - A global tick method gets called for each tick
+            - This is your game loop
+            - It is how your game changes state over time
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[2]
+            def tick(args)
+              if args.inputs.mouse.button_left
+                args.state.click = true
+                args.outputs.labels << { x: 500, y: 600, text: "Click!" }
+              end
+              args.outputs.solids << [200, 400, 100, 100]
+              args.outputs.sprites << Sprite.new(
+                x: 10, y: 10, size: 30, path: "sprites/test.png",
+              )
+            end
+            ```
+
+            Note:
+            - Inside the tick method, we check for clicks
+            - You can check for keyboard, controller, and touch inputs
+            - Basically any interaction the player has
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[3-4]
+            def tick(args)
+              if args.inputs.mouse.button_left
+                args.state.click = true
+                args.outputs.labels << { x: 500, y: 600, text: "Click!" }
+              end
+              args.outputs.solids << [200, 400, 100, 100]
+              args.outputs.sprites << Sprite.new(
+                x: 10, y: 10, size: 30, path: "sprites/test.png",
+              )
+            end
+            ```
+
+            Note:
+            - Explain code
+            - State is just a big hash of game state you can use
+            - We also add a label to outputs
+            - A label is just text on the screen
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[6]
+            def tick(args)
+              if args.inputs.mouse.button_left
+                args.state.click = true
+                args.outputs.labels << { x: 500, y: 600, text: "Click!" }
+              end
+              args.outputs.solids << [200, 400, 100, 100]
+              args.outputs.sprites << Sprite.new(
+                x: 10, y: 10, size: 30, path: "sprites/test.png",
+              )
+            end
+            ```
+
+            Note:
+            - You can also draw shapes
+            - Adding an array to solids will result in a rectangle
+            - In this case, a square
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[7-9]
+            def tick(args)
+              if args.inputs.mouse.button_left
+                args.state.click = true
+                args.outputs.labels << { x: 500, y: 600, text: "Click!" }
+              end
+              args.outputs.solids << [200, 400, 100, 100]
+              args.outputs.sprites << Sprite.new(
+                x: 10, y: 10, size: 30, path: "sprites/test.png",
+              )
+            end
+            ```
+
+            Note:
+            - Here, we're adding a sprite to screen
+            - We're using a class, but you can use a hash or array too
+            - For any output, you can use an Array, Hash, or custom Class
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[]
+            def tick(args)
+              args.state.box ||= [400, 400, 100, 100]
+              args.state.box[1] += 5 if args.inputs.up
+              args.state.box[1] -= 5 if args.inputs.down
+              args.state.box[0] -= 5 if args.inputs.left
+              args.state.box[0] += 5 if args.inputs.right
+              args.outputs.solids << args.state.box
+            end
+            ```
+
+            ![DragonRuby Simple Game](images/dragonruby-simple.png)
+
+            Note:
+            - Putting that all together
+            - We can make a basic game
+            - This draws a box and lets you move it around
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[2]
+            def tick(args)
+              args.state.box ||= [400, 400, 100, 100]
+              args.state.box[1] += 5 if args.inputs.up
+              args.state.box[1] -= 5 if args.inputs.down
+              args.state.box[0] -= 5 if args.inputs.left
+              args.state.box[0] += 5 if args.inputs.right
+              args.outputs.solids << args.state.box
+            end
+            ```
+
+            ![DragonRuby Simple Game](images/dragonruby-simple.png)
+
+            Note:
+            - We create a box in the state hash
+            - Specifying x, y, w, h
+            - By default, it is black
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[3-6]
+            def tick(args)
+              args.state.box ||= [400, 400, 100, 100]
+              args.state.box[1] += 5 if args.inputs.up
+              args.state.box[1] -= 5 if args.inputs.down
+              args.state.box[0] -= 5 if args.inputs.left
+              args.state.box[0] += 5 if args.inputs.right
+              args.outputs.solids << args.state.box
+            end
+            ```
+
+            ![DragonRuby Simple Game](images/dragonruby-simple.png)
+
+            Note:
+            - If an arrow key or wasd is pushed
+            - We increment x and y of the box
+            - This will make the box move around the screen
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ![DragonRuby Simple Game X,Y,W,H](images/dragonruby-simple-xywh.png)
+
+            Note:
+            - You can visualize it like this
+            - Explain the diagram
+            - Very similar to canvas
+            ---
+            ## Dragon Ruby Game Toolkit (GTK)
+
+            ```rb[7]
+            def tick(args)
+              args.state.box ||= [400, 400, 100, 100]
+              args.state.box[1] += 5 if args.inputs.up
+              args.state.box[1] -= 5 if args.inputs.down
+              args.state.box[0] -= 5 if args.inputs.left
+              args.state.box[0] += 5 if args.inputs.right
+              args.outputs.solids << args.state.box
+            end
+            ```
+
+            ![DragonRuby Simple Game](images/dragonruby-simple.png)
+
+            Note:
+            - Lastly, we add the box to outputs
+            - So DragonRuby knows to render it
+            - Nice and simple, fits on one slide!
+            ---
+            ## How do I get it?
+
+            ![DragonRuby Itch.io Page](images/dragonruby-itch.png)
+
+            Note:
+            - DragonRuby isn't open source
+            - You can buy it from the Itch.io page
+            - It costs about $50 for the standard license
+            ---
+            ## How do I get it?
+
+            ![DragonRuby License Page](images/dragonruby-license-1.png)
+
+            Note:
+            - There are other options
+            - You can get a free standard license pretty easily
+            - You can get a free indie license too, but it is harder
+            ---
+            ## How do I get it?
+
+            ![DragonRuby License Page](images/dragonruby-license-2.png)
+
+            Note:
+            - There are 3 license plans
+            - Standard is billed once
+            - Indie and Pro are billed yearly
+            - Fair pricing for a game engine
+            ---
+            ## How do I get it?
+
+            ![DragonRuby License Page](images/dragonruby-license-3.png)
+
+            Note:
+            - But what's the difference?
+            - Indie has C extensions, simple Steam publishing, and Bytecode compilation (faster load times)
+            - Pro has Mobile app publishing, VR support, higher resolutions, and a few more fancy things
+            - To start, standard is totally fine
+            ---
+            ## What's Included
+
+            - Engine
+            - Publishing tools
+            - Basic HTTP server
+            - Docs
+            - Code samples
+            - Game skeleton
+
+            Note:
+            - But what do you get?
+            - Explain
+            ---
+            ## The Engine
+
+            ```txt
+            > dragonruby <game_path=mygame> --<option> <path>
+            * [Engine] ...
+            - [Engine] Process Working Directory: /home/gannon/DragonRuby/
+            - [Engine] Game Dir: /home/gannon/DragonRuby/mygame
+            - [Engine] Game ID: game
+            - [Engine] Game Title: Game
+            - [Engine] Game Version: 0.1
+            - [Engine] Game Package ID: org.game.game
+            - [Engine] Game Developer ID: game
+            - [Engine] Game Developer Title: Gannon
+            - [Engine] Production Build: no
+            - [Engine] Remote Hotload: no
+            ? [Engine] ...
+            ```
+
+            Note:
+            - The dragonruby executable is what powers your game
+            - You'll use it throughout development
+            - It will start your game, run tests, etc.
+            - With no arguments, it will use mygame as the path
+            ---
+            ## Publishing Tools
+
+            ```txt
+            > dragonruby-publish <game_path=mygame>
+            ...
+            - Starting publish for game in directory 'mygame'
+            - Developer ID: game
+            - Developer Title: Gannon
+            - Game ID: game
+            - Game Title: Game
+            - Game Version: 0.1
+            - Game Icon: metadata/icon.png
+            - Package ID: org.game.game
+            - Building for platform 'html5' ...
+            ```
+
+            Note:
+            - The publishing executable will package your game
+            - Builds for WASM, Linux, Windows, Mac, etc.
+            - If you want mobile, you'll need Pro
+            ---
+            ## Basic HTTP Server
+
+            ```txt
+            > dragonruby-httpd <path> <port>
+            ********************************************************
+            * Please note that this http server is only for simple *
+            * local testing. You should use a real server like     *
+            * Apache or nginx for the public!                      *
+            ********************************************************
+
+
+            Now accepting connections on port 4000.
+            Try pointing your browser at http://localhost:4000/
+            ```
+
+            Note:
+            - DragonRuby also ships with a basic HTTP server
+            - You can use it to host static content
+            - Like the docs website?
+            - I don't know why this is needed
+            ---
+            ## Docs
+
+            ```sh
+            docs
+            ├── api
+            ├── book.png
+            ├── changelog.txt
+            ├── favicon-16x16.png
+            ├── favicon-32x32.png
+            ├── favicon.ico
+            ├── guides
+            ├── index.html
+            ├── index.md
+            ├── misc
+            ├── oss
+            ├── public
+            ├── samples
+            └── ...
+            ```
+
+            Note:
+            - Speaking of docs, DragonRuby ships with a copy of the docs website
+            - You can view it offline, or online
+            - It's great, be sure it use it
+            ---
+            ## Code Samples
+
+            ```sh
+            samples
+            ├── 01_rendering_basics
+            ├── 02_input_basics
+            ├── 03_rendering_sprites
+            ├── 04_physics_and_collisions
+            ├── 05_mouse
+            ├── 06_save_load
+            ├── 07_advanced_audio
+            ├── 07_advanced_rendering
+            ├── 07_advanced_rendering_hd
+            ├── 08_tweening_lerping_easing_functions
+            ├── 09_performance
+            ├── 09_ui_controls
+            ├── 10_advanced_debugging
+            └── ...
+            ```
+
+            Note:
+            - This is super valuable
+            - DragonRuby also ships with a bunch of code samples
+            - These samples are all trivial games
+            - They'll inspire you and teach you
+            ---
+            ## Game Skeleton
+
+            ```sh
+            mygame
+            ├── app
+            │   ├── main.rb
+            │   └── repl.rb
+            ├── data
+            ├── fonts
+            ├── metadata
+            │   ├── cvars.txt
+            │   ├── game_metadata.txt
+            │   ├── icon.png
+            │   └── ios_metadata.txt
+            ├── open-source-licenses.txt
+            ├── sounds
+            └── sprites
+                └── ...
+            ```
+            Note:
+            - Finally, there is the game skeleton
+            - The game is called My Game by default
+            - It is meant to be nested in the engine directory
+            ---
+            ## Game Skeleton
+
+            ```sh
+            mygame
+            ├── app
+            │   ├── main.rb
+            │   └── repl.rb
+            ├── data
+            ├── fonts
+            ├── metadata
+            │   ├── cvars.txt
+            │   ├── game_metadata.txt
+            │   ├── icon.png
+            │   └── ios_metadata.txt
+            ├── open-source-licenses.txt
+            ├── sounds
+            └── sprites
+                └── ...
+            ```
+            Note:
+            - Game starts by loading app/main.rb
+            - Fefine your tick method there
+            - Other files can be required from main
+            ---
+            ## Game Skeleton
+
+            ```sh
+            mygame
+            ├── app
+            │   ├── main.rb
+            │   └── repl.rb
+            ├── data
+            ├── fonts
+            ├── metadata
+            │   ├── cvars.txt
+            │   ├── game_metadata.txt
+            │   ├── icon.png
+            │   └── ios_metadata.txt
+            ├── open-source-licenses.txt
+            ├── sounds
+            └── sprites
+                └── ...
+            ```
+            Note:
+            - Metadata is used for configuration
+            - Can set name and icon of your game
+            - Can also change engine defaults
+            - Other directories are for assets
+            ---
+            ## Resources
+
+            ![DragonRuby Docs](images/dragonruby-docs.png)
+
+            Note:
+            - Like I mentioned before, the docs can be found online
+            - Over on the DragonRuby website
+            - Or locally within the game engine
+            ---
+            ## Resources
+
+            ![DragonRuby Discord](images/dragonruby-discord.png)
+
+            Note:
+            - You can also join the discord
+            - There's a lot of documentation to follow
+            - But the the author of the engine is on the discord and subreddit
+            ---
+            ## Let's Make a Game
+
+            Note:
+            - I could keep talking
+            - But I'd like to show you the engine instead
+            - It will be more useful
+            ---
+            ## Demo
+            ---
+            ## Thanks!
+            ---
+            ## Resources
+
+            - https://dragonruby.org/
+            - https://docs.dragonruby.org
+            - https://dragonruby.itch.io/
+          </textarea>
+        </section>
+      </div>
+    </div>
+    <script type="module">
+      import Reveal from 'reveal.js'
+      import Markdown from 'reveal.js-markdown-plugin'
+      import Mermaid from 'reveal.js-mermaid-plugin'
+      import LaserPointer from 'reveal.js-laser-pointer-plugin'
+      import Highlight from 'reveal.js-highlight-plugin'
+      import Notes from 'reveal.js-notes-plugin'
+
+      const deck = new Reveal({
+        plugins: [
+          Markdown,
+          Mermaid,
+          Highlight,
+          LaserPointer,
+          Notes,
+        ]
+      })
+      deck.initialize({
+        autoPlayMedia: true,
+        transition: 'none',
+        center: false,
+        controls: false,
+        hash: true,
+        controlsBackArrows: 'hidden',
+        mermaid: {
+          theme: 'dark',
+          themeVariables: {
+            signalTextColor: '',
+          },
+        },
+      })
+    </script>
+  </body>
+</html>
