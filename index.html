@@ -72,6 +72,10 @@
     img[alt="DragonRuby Itch.io Page"] {
       width: 80%;
     }
+
+    img[alt="Game Source QR"] {
+      width: 50%;
+    }
   </style>
   <body>
     <div class="reveal">
@@ -90,16 +94,23 @@
 
             # 🙋
 
+            Note:
+            - Before I talk about DragonRuby
+            - Who here is a web dev?
             ---
             ## Who is a game developer?
 
             # 🙋‍♀️
 
+            Note:
+            - And who here is a game dev?
             ---
             ## Who's made a game before?
 
             # 🙋‍♂️
 
+            Note:
+            - Anyone made a game before?
             ---
             ## 👋 Hi, I'm Gannon
 
@@ -109,31 +120,33 @@
             - Committer on Ruby on Rails
             - Organizes Winnipeg.rb
             Note:
-            - Intro
+            - Ok
+            - I'm Gannon
             ---
             ## I'm a web developer
 
-            # 🙋‍♂️
+            # 👨‍💻
 
             Note:
-            - I am a game developer
-            - But I've also attempted to make games
+            - I am a web developer
+            - I've tried to make games too
             ---
             ## My Journey in Game Development
 
             Note:
-            - And before I talk about DragonRuby
-            - I want to talk about that
+            - I want to start by
+            - Talking about my journey in game dev
             ---
-            ## JavaScript Canvas
+            ## Canvas
 
-            <video src="images/canvas.mp4">
+            <video src="images/canvas.mp4" loop>
             </video>
 
             Note:
             - First, we have the HTML canvas
-            - I'm sure many have done something like this
-            - I wrote something like this in college whilee learning web dev
+            - Many people try making a game with canvas
+            - I wrote something like this learning web dev
+            - Explain video
             - It taught me rudimentary concepts critical to game dev
             - Source https://github.com/MTrajK/bouncing-balls
             ---
@@ -145,7 +158,8 @@
             Note:
             - Next I wanted to make something more challenging
             - Snake was the perfect candidate
-            - Easy to code and understand, but fun
+            - Easy to code, but fun
+            - The source isn't on GitHub, I'm embarassed by it
             ---
             ## Snake
 
@@ -153,7 +167,6 @@
             </iframe>
 
             Note:
-            - The source isn't on GitHub, I'm too embarassed by it
             - It was my first time writing TypeScript
             - It is linted and tested! I promise
             - I was able to embed it on a slide
@@ -174,8 +187,8 @@
 
             Note:
             - So I did
-            - I don't remember if I got
-            - I wrote it in CoffeeScript and Ionic
+            - I don't remember if I got the gift card
+            - I wrote the app in CoffeeScript and Ionic
             - Play game
             ---
             ## OpenGL
@@ -183,9 +196,10 @@
             ![OpenGL Demo](images/opengl.png)
 
             Note:
-            - Next up, I heard about DragonRuby at RubyKaigi
-            - I was exited to hear you could write games with Ruby
-            - The game engine was free for a week, so I tried using it
+            - Fast forward to 2019
+            - I heard about DragonRuby at RubyKaigi
+            - I was exited you could write games with Ruby
+            - The game engine was free for a week, so I tried it out
             ---
             ## OpenGL
 
@@ -193,7 +207,7 @@
 
             Note:
             - And I hated it and thought I could do better
-            - So I built my own game engine with OpenGL
+            - So I built my own game engine with OpenGL and Ruby bindings
             - Needless to say, it didn't go great
             - Play game
             ---
@@ -213,18 +227,19 @@
             - Powers DragonRuby Game Toolkit and RubyMotion
 
             Note:
-            - But what is it exactly?
+            - But what is DragonRuby?
             - A ruby runtime for games and mobile apps
             - LLVM compiled mruby
             - Built for DragonRuby GTK and RubyMotion
             ---
-            ## What's a Ruby Runtime?
+            ## What's a Runtime?
 
             - Languages have implementations
             - Ruby has many (CRuby, Truffle, JRuby, etc.)
-            - Many other languages do too (PyPy, V8, etc.)
+            - Many other languages do too (CPython, PyPy, etc.)
 
             Note:
+            - What is a Runtime?
             - An implementation of a language
             - Ruby has CRuby, JRuby, Truffle, Rubinius, and more
             - Other languages have multiple implementations too
@@ -251,9 +266,9 @@
             ## ❌
 
             Note:
+            - As a Ruby Runtime,
             - DragonRuby has a few limitations
-            - First, there's no gems
-            - You have to vendor your dependencies
+            - First, there's no gems so you need to vendor
             - You're missing a lot of familiar tools
             ---
             ## DragonRuby Runtime
@@ -272,7 +287,7 @@
             ---
             ## DragonRuby Runtime
 
-            ```sh
+            ```txt
             * ERROR: Exception while requiring app/main.rb.
             * ERROR: Exception while requiring app/game.rb.
             uninitialized constant Dir
@@ -284,7 +299,7 @@
             ** Backtrace: (-1)
             ```
 
-            ```sh
+            ```txt
             * ERROR: Exception while requiring app/main.rb.
             * ERROR: Exception while requiring app/game.rb.
             uninitialized constant ENV
@@ -321,15 +336,15 @@
             scores = GTK.http_get("https://game.com/api/scores.json")
             GTK.parse_json(scores)
             GTK.benchmark(
-              iterations: 1_000,
-              operator: proc { 1 % 2 },
-              method: proc { 1.modulo(2) },
+              iterations: 100_000,
+              cover: proc { (1..2).cover? 1 },
+              include: proc { [1, 2, 3].include? 1 },
             )
             ```
 
             Note:
             - The GTK API covers most things you need
-            - If the Ruby API doesn't exist, this should
+            - If the Ruby API doesn't exist, this should have it
             ---
             ## Dragon Ruby Game Toolkit (GTK)
 
@@ -342,9 +357,9 @@
             scores = GTK.http_get("https://game.com/api/scores.json")
             GTK.parse_json(scores)
             GTK.benchmark(
-              iterations: 1_000,
-              operator: proc { 1 % 2 },
-              method: proc { 1.modulo(2) },
+              iterations: 100_000,
+              cover: proc { (1..2).cover? 1 },
+              include: proc { [1, 2, 3].include? 1 },
             )
             ```
 
@@ -365,9 +380,9 @@
             scores = GTK.http_get("https://game.com/api/scores.json")
             GTK.parse_json(scores)
             GTK.benchmark(
-              iterations: 1_000,
-              operator: proc { 1 % 2 },
-              method: proc { 1.modulo(2) },
+              iterations: 100_000,
+              cover: proc { (1..2).cover? 1 },
+              include: proc { [1, 2, 3].include? 1 },
             )
             ```
 
@@ -389,9 +404,9 @@
             scores = GTK.http_get("https://game.com/api/scores.json")
             GTK.parse_json(scores)
             GTK.benchmark(
-              iterations: 1_000,
-              operator: proc { 1 % 2 },
-              method: proc { 1.modulo(2) },
+              iterations: 100_000,
+              cover: proc { (1..2).cover? 1 },
+              include: proc { [1, 2, 3].include? 1 },
             )
             ```
 
@@ -399,7 +414,7 @@
             - DragonRuby has benchmarking too
             - Explain code
             - That's pretty cool
-            - Performance semantics may not be the same as MRI
+            - Performance semantics may not be the same as CRuby
             ---
             ## Dragon Ruby Game Toolkit (GTK)
 
@@ -411,8 +426,8 @@
               3,    # frames per sprite,
               true, # should loop
             )
-            click_frame = Kernel.tick_count
-            click_frame.elapsed_time > 60 # seconds
+            @click_frame ||= Kernel.tick_count
+            @click_frame.elapsed_time > 60 # seconds
             [x, y, w, h].inside_rect?(other)
             ```
 
@@ -430,8 +445,8 @@
               3,    # frames per sprite,
               true, # should loop
             )
-            click_frame = Kernel.tick_count
-            click_frame.elapsed_time > 60 # seconds
+            @click_frame ||= Kernel.tick_count
+            @click_frame.elapsed_time > 60 # seconds
             [x, y, w, h].inside_rect?(other)
             ```
 
@@ -439,7 +454,7 @@
             - First is the tick count extension
             - This keeps track of game ticks
             - Ticks are basically a counter for rendered frames
-            - Used with the tick method I'll talk about later
+            - Used with global tick method I'll talk about later
             ---
             ## Dragon Ruby Game Toolkit (GTK)
 
@@ -451,8 +466,8 @@
               3,    # frames per sprite,
               true, # should loop
             )
-            click_frame = Kernel.tick_count
-            click_frame.elapsed_time > 60 # seconds
+            @click_frame ||= Kernel.tick_count
+            @click_frame.elapsed_time > 60 # seconds
             [x, y, w, h].inside_rect?(other)
             ```
 
@@ -727,7 +742,7 @@
             ## The Engine
 
             ```txt
-            > dragonruby <game_path=mygame> --<option> <path>
+            > ./dragonruby <game_path=mygame> --<option> <path>
             * [Engine] ...
             - [Engine] Process Working Directory: /home/gannon/DragonRuby/
             - [Engine] Game Dir: /home/gannon/DragonRuby/mygame
@@ -751,7 +766,7 @@
             ## Publishing Tools
 
             ```txt
-            > dragonruby-publish <game_path=mygame>
+            > ./dragonruby-publish <game_path=mygame>
             ...
             - Starting publish for game in directory 'mygame'
             - Developer ID: game
@@ -772,7 +787,7 @@
             ## Basic HTTP Server
 
             ```txt
-            > dragonruby-httpd <path> <port>
+            > ./dragonruby-httpd <path> <port>
             ********************************************************
             * Please note that this http server is only for simple *
             * local testing. You should use a real server like     *
@@ -886,7 +901,7 @@
             ```
             Note:
             - Game starts by loading app/main.rb
-            - Fefine your tick method there
+            - Define your tick method there
             - Other files can be required from main
             ---
             ## Game Skeleton
@@ -914,7 +929,7 @@
             - Can also change engine defaults
             - Other directories are for assets
             ---
-            ## Resources
+            ## Need Help?
 
             ![DragonRuby Docs](images/dragonruby-docs.png)
 
@@ -923,7 +938,7 @@
             - Over on the DragonRuby website
             - Or locally within the game engine
             ---
-            ## Resources
+            ## Need Help?
 
             ![DragonRuby Discord](images/dragonruby-discord.png)
 
@@ -940,6 +955,9 @@
             - It will be more useful
             ---
             ## Demo
+
+            ![Game Source QR](images/qr.png)
+
             ---
             ## Thanks!
             ---
